@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/', to: 'page#render_page'
+  get '/reviews', to: 'page#render_page'
 
   root "static_pages#home"
   get "/signup", to: "users#new"
