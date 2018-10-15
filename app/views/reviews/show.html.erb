@@ -1,0 +1,87 @@
+<div class="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog_post_container">
+          <div class="blog_post">
+            <div class="blog_post_title">
+              <%= @review.title %>
+            </div>
+
+            <div class="blog_post_image">
+              <figure class="image" >
+                <img src="<%= @review.banner%>" style="height: 300px;border-radius: 5px 5px 0 0;" alt="Placeholder image">
+              </figure>
+            </div>
+            
+            <div class="blog_post_meta">
+              <ul>
+                <li class="blog_post_meta_item">
+                  <i class="fa fa-comment-o"></i>
+                  <%= @review.comments.count %> コメント
+                </li>
+                <li class="blog_post_meta_item">
+                  <% if logged_in? %>
+                    <% if can? :edit, @review %>
+                      <%= link_to "編集", edit_review_path(@review) %>
+                    <% end %>
+                  <% end %>
+                </li>
+                <li class="blog_post_meta_item">
+                  <% if logged_in? %>
+                    <% if can? :destroy, @review %>
+                      <%= link_to "削除", @review, method: :delete,
+                        data: {confirm: "削除しますか？"} %>
+                    <% end %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+
+            <div class="blog_post_text">
+              <p><%= strip_tags @review.content %></p>
+            </div>
+          </div>
+
+          <div class="blog-comment">
+            <h2>コメント</h2>
+
+            <div class="pb-cmnt-container">
+              <textarea placeholder="ここにコメントを書く"　class="pb-cmnt-textarea"></textarea>
+              <form class="form-inline">
+                <button class="btn btn-primary pull-right" type="button">
+                  コメント</button>
+              </form>
+            </div>
+
+            <hr/>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-4 sidebar_col">
+        <div class="sidebar_archives">
+          <div class="sidebar_title">筆者</div>
+          <h3 style="text-align: center;"><%= @review.user.name %></h3>
+            <img src="<%= @review.user.avatar %>">
+        </div>
+
+        <div class="sidebar_categories">
+          <div class="sidebar_title">商品</div>
+          <div class="sidebar_tags">
+            <ul>
+              <% if @review.products %>
+                <%= @review.products.each do |x| %>
+                  <h3>品名：<%= x.name %></h3>
+                  <h5>カテゴリー：<%= x.category %></h5>
+                  <h5>メーカー：<%= x.maker.name %></h5>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   before_save :downcase_email
+  
+  has_many :reviews, dependent: :destroy
+  has_many :comments, dependent: :destroy
     
     
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
