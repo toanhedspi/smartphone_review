@@ -1,0 +1,30 @@
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+  <div class="field" >
+    <h5>新しいコメント:</h5>
+    <%= f.text_area :content, class: "form-control"%>
+  </div>
+
+  <div style="display: inline-block">
+    <%= f.label "レート:" %>
+    <%= f.select(:star, [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]])  %>
+  </div>
+
+  <div class="actions" style="float: right; margin-top: 30px">
+    <%= f.submit "確認", class: 'btn btn-primary comment-submit'%>
+  </div>
+  <%= f.hidden_field :review_id %>
+
+
+<% end %>

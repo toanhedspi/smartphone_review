@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :products
   resources :makers
   resources :reviews
+  resources :comments
 end

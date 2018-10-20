@@ -43,19 +43,47 @@
             </div>
           </div>
 
-          <div class="blog-comment">
-            <h2>コメント</h2>
 
-            <div class="pb-cmnt-container">
-              <textarea placeholder="ここにコメントを書く"　class="pb-cmnt-textarea"></textarea>
-              <form class="form-inline">
-                <button class="btn btn-primary pull-right" type="button">
-                  コメント</button>
-              </form>
-            </div>
+          <h3><%= @comments.length %>コメント:</h3>
+            <% @comments.each do |comment| %>
+              <div class="comment-container row">
+              <div class="col-sm-2 comment-imagebox ">
+                  <img style="border-radius: 50%;" src="https://images.vexels.com/media/users/3/145908/preview2/52eabf633ca6414e60a7677b0b917d92-male-avatar-maker.jpg">
+              </div>
+              <div class="comment-box col-sm-10">
+                <div class="comment-header">
+                  <p><%= comment.user.name %></p>
+                  <p style="font-weight: 400;font-size: 80%"><%= comment.created_at %></p>
+                </div>
+                <!--<hr width="10%" style="border-color: #000">-->
+                <div class="comment-body">
+                  <p><%= comment.content %></p>
+                  <% comment.star.to_i.times do  %>
+                    <span class="glyphicon glyphicon-star"></span>
+                  <% end %>
+                  <% comment.blank_stars.times do %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                  <% end %>
+                  <div style="text-align: right">
+                  <% if logged_in? %>
+                    <% if can? :edit, comment %>
+                      <%= link_to "編集", edit_comment_path(comment) %>
+                    <% end %>
+                  <% end %>
+                
+                  <% if logged_in? %>
+                    <% if can? :destroy, comment %>
+                      <%= link_to "削除", comment, method: :delete,
+                        data: {confirm: "削除しますか？"} %>
+                    <% end %>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
 
-            <hr/>
-          </div>
+              </div>
+            <% end %>
+          <%= render 'comments/form' %>
 
         </div>
       </div>
