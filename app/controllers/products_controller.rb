@@ -1,10 +1,18 @@
 class ProductsController < ApplicationController
+  load_and_authorize_resource param_method: :product_params
+  
   def index
-    @products = Product.all.page(params[:page]).per(9)
+    @products = Product.all.page(params.permit![:page]).per(9)
   end
+  
   def new
     @product = Product.new
   end
+  
+  def show
+    @reviews = @product.reviews
+  end
+
   def create
     @product = Product.new user_params
     if @product.save

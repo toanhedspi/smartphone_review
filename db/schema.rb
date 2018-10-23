@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20181012142859) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
+    t.string   "image"
     t.string   "category"
     t.integer  "maker_id"
     t.datetime "created_at", null: false
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20181012142859) do
     t.string   "title"
     t.string   "banner"
     t.string   "content"
+    t.integer  "cmt_count",  default: 0
     t.boolean  "state",      default: false
     t.integer  "user_id"
     t.datetime "created_at",                 null: false

@@ -652,3 +652,10 @@ textarea {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
+
+.review_card {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+  margin: 10px;
+}

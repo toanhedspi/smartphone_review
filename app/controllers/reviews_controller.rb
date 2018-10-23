@@ -2,10 +2,11 @@ class ReviewsController < ApplicationController
     load_and_authorize_resource param_method: :review_params
     
     def index
-        # @reviews = Review.order_by_time.page(params[:page]).per 9
-        @reviews = Review.all.group_by{|review| review.created_at.strftime('%Y-%m-%d')}
-        @reviews = @reviews.sort_by{ |day, _review| day }
-        @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
+        @reviews = if params[:field] == "top_cmt"
+                    Review.order_by_cmt.page(params.permit![:page]).per 10
+                else
+                    Review.order_by_time.page(params.permit![:page]).per 10
+                end
     end
     
     def new
@@ -46,6 +47,6 @@ class ReviewsController < ApplicationController
 
     private
         def review_params
-            params.require(:review).permit :title, :content
+            params.require(:review).permit :title, :content, products_attributes: [:id, :name, :category, :maker_id]
         end
 end
