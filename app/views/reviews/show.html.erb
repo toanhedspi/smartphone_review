@@ -42,13 +42,29 @@
               <p><%= strip_tags @review.content %></p>
             </div>
           </div>
-
-
-          <h3><%= @comments.length %>コメント:</h3>
+          
+          <div class="sidebar_title pull-left">関連レビュー</div>
+          <hr><hr><hr><hr>
+          <% Review.all.each do |review| %>
+            <% if review.id != @review.id && review.user_id == @review.user_id %>
+              <%= render :partial => "review", :object => review %>
+            <% end %>
+          <% end %>
+          <% @review.products.each do |product| %>
+            <% product.reviews.each do |review| %>
+              <% if review.id != @review.id %>
+                <%= render :partial => "review", :object => review %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <hr><hr><hr><hr>
+          
+          <div class="sidebar_title pull-left"><%= @comments.length %>コメント</div>
+          <hr><hr><hr><hr>
             <% @comments.each do |comment| %>
               <div class="comment-container row">
               <div class="col-sm-2 comment-imagebox ">
-                  <img style="border-radius: 50%;" src="https://images.vexels.com/media/users/3/145908/preview2/52eabf633ca6414e60a7677b0b917d92-male-avatar-maker.jpg">
+                  <img style="avatar" src="<%= comment.user.avatar %>">
               </div>
               <div class="comment-box col-sm-10">
                 <div class="comment-header">
@@ -80,7 +96,6 @@
                   </div>
                 </div>
               </div>
-
               </div>
             <% end %>
           <%= render 'comments/form' %>
@@ -100,10 +115,16 @@
           <div class="sidebar_tags">
             <ul>
               <% if @review.products %>
-                <%= @review.products.each do |x| %>
-                  <h3>品名：<%= x.name %></h3>
-                  <h5>カテゴリー：<%= x.category %></h5>
-                  <h5>メーカー：<%= x.maker.name %></h5>
+                <% @review.products.each do |x| %>
+                  <div class="card" style="width: 40rem;">
+                    <img class="card-img-top" src="<%= x.image %>" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">品名：<%= x.name %></h5>
+                      <p class="card-text">メーカー：<%= x.maker.name %></p>
+                      <p class="card-text">カテゴリー：<%= x.category %></p>
+                      <a href="products/<%= x.id %>" class="btn btn-primary">商品を見る</a>
+                    </div>
+                  </div>
                 <% end %>
               <% end %>
             </ul>

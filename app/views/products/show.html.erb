@@ -1,12 +1,16 @@
 <div class="container">
-  <h1>Iphone 6 32G</h1>
+  <h1><%= @product.name %></h1>
   
-  <img class="card-img-top" src="https://cdn1.vienthonga.vn/image/2017/3/4/100000_iphone-6-8.jpg" alt="">
+  <img class="card-img-top" src="<%= @product.image %>" alt="">
   
-  <h4>カテゴリー: Iphone</h4>
-  <h4>メーカー: Apple</h4>
+  <h4>カテゴリー: <%= @product.category %></h4>
+  <h4>メーカー: <%= @product.maker.name %></h4>
   
   <hr>
   
   <h1>この商品のレビュー</h1>
+  
+  <div class="review_card">
+      <%= render @reviews %>
+  </div>
 </div>

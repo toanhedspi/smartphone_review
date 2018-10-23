@@ -4,6 +4,7 @@ class CreateReviews < ActiveRecord::Migration
       t.string :title
       t.string :banner
       t.string :content
+      t.integer :cmt_count, default: 0
       t.boolean :state, default: false
       t.integer :user_id
 
