@@ -56,6 +56,45 @@ header {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
+/*..COMMENT..*/
+
+.comment-box {
+    /*background-color: #f7f7f7;*/
+    margin-bottom: 30px;
+    padding-left: 0;
+    padding-right: 0;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.comment-imagebox {
+    border-radius: 50%;
+    border-width: 1px;
+}
+
+.comment-header {
+    background-color: #e2fffd;
+    padding: 10px 0 10px 10px;
+    border-bottom: 1px solid #000;
+}
+
+.comment-header>p {
+    color: #324c4f;
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.comment-body {
+    padding: 10px 15px;
+}
+
+.comment-submit {
+    width: auto;
+}
+
+.comment-rb-label {
+    display: inline-block;
+}
 /* FOOTER SECTION */
 
 .footer-distributed{
